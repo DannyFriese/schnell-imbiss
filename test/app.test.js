@@ -1,9 +1,10 @@
+
 const { getMenuItemNames, getMenuItemPrices, getPizzaToppings, placeOrder } = require('../src/app');
 
 describe('App', () => {
   describe('getMenuItemNames', () => {
     it('returns names of all menu items', () => {
-      const expectedNames = ['Döner Kebab', 'Currywurst & Pommes', 'Pizza', 'Falafel im Brot'];
+      const expectedNames = ['Döner Kebab', 'Currywurst & Pommes', 'Pizza', 'Falafel im Brot', 'Leckeres Eis'];
       const results = getMenuItemNames();
 
       expect(results).toEqual(expectedNames);
@@ -11,7 +12,7 @@ describe('App', () => {
 
     it('returns names of menu items within a given limit', () => {
       const expectedMenuItemNames = ['Döner Kebab', 'Currywurst & Pommes'];
-      const results = getMenuItemNames(2);
+      const results= getMenuItemNames(2);
 
       expect(results).toEqual(expectedMenuItemNames);
     });
@@ -50,7 +51,18 @@ describe('App', () => {
      * Oh no! We have missing test coverage! We better write some tests before we deploy any bugs to production!!!
      * Expected behaviour: getPizzaToppings(NAME_OF_VARIETY) should return an array of this pizza variety's toppings.
      */
+    it('shows the right toppings', () => {
+     const variety= 'Hawaii';
+     const expectedToppings= ['Gouda', 'Hinterschinken', 'Ananas'];
+     const results = getPizzaToppings(variety);
+
+     expect(results).toEqual(expectedToppings);
+    });
   });
+     
+
+     
+
 
   describe('placeOrder', () => {
     /*
@@ -61,5 +73,10 @@ describe('App', () => {
      * resolves with:
      * Thank you for dining with Schnell Imbiss! Here is your order of: 2 x Leckeres Eis 3 x Pizza. Your total is: 26,50 €.
      */
+    it('places an order', () => {
+      const expectedMessage = 'Thank you for dining with Schnell Imbiss! Here is your order of: 2 x Leckeres Eis 3 x Pizza. Your total is: 26,50 €'
+      const results = placeOrder({'Leckeres Eis': 2, 'Pizza': 3}, 'de');
+      expect(results).resolves.toBe(expectedMessage);
+     });
   });
 });
